@@ -1,0 +1,22 @@
+<div class="col-12" style="min-height:890px;background-color: rgb(201, 207, 207);">  
+    <div class="col-10 offset-md-1">
+      <div class="container pt-3" >
+          <div class="row align-item-center">
+              <div *ngFor="let name of titles" class="card col mx-1"   
+              (click)="generatedata.randomize(name, titlesvalue[name])"
+              (mouseover)="prguntar()"
+
+              [ngStyle]="{backgroundColor:'rgb(152, 195, 212)' }"
+            
+              >
+                <div class="card-body">
+                    <h5 class="card-title">{{name}}</h5>
+                    <p class="card-text">{{ titlesvalue[name] }}</p>
+                  </div>
+              </div>
+          </div>    
+      </div>
+    </div>
+    <app-graph #generatedata ></app-graph>
+</div>
+
