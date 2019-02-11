@@ -50,5 +50,12 @@ export class DashboardComponent implements OnInit {
   updategraph(name): void {    
     this.name=name;
   }
+<<<<<<< HEAD
+=======
+  preguntar(){
+    console.log('aaa');
+    console.log();
+  }
+>>>>>>> 407aedc952d8648c1aca7dc2d046a2e6176269fc
 
 }

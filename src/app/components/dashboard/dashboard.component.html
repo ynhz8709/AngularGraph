@@ -4,7 +4,14 @@
           <div class="row align-item-center">
               <div *ngFor="let name of titles" class="card col mx-1"   
               (click)="generatedata.randomize(name, titlesvalue[name])"
+<<<<<<< HEAD
               [ngStyle]="{backgroundColor:'rgb(152, 195, 212)'}"            
+=======
+              (mouseover)="prguntar()"
+
+              [ngStyle]="{backgroundColor:'rgb(152, 195, 212)' }"
+            
+>>>>>>> 407aedc952d8648c1aca7dc2d046a2e6176269fc
               >
                 <div class="card-body">
                     <h5 class="card-title">{{name}}</h5>
