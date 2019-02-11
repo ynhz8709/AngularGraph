@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { GraphComponent } from './components/graph/graph.component';
 import { DatatableComponent } from './components/datatable/datatable.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { GojsComponent } from './components/gojs/gojs.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     AppComponent,
     GraphComponent,
     DatatableComponent,
-    DashboardComponent
+    DashboardComponent,
+    GojsComponent
   ],
   imports: [
     BrowserModule,
