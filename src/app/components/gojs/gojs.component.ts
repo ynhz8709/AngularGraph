@@ -11,7 +11,6 @@ export class GojsComponent{
 
 
   ngAfterViewInit() {
-    // function init() {
       var $ = go.GraphObject.make;  // for conciseness in defining templates
    
       var myDiagram =
