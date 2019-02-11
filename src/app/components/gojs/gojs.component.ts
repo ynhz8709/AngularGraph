@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
+import { Component } from '@angular/core';
 import * as go from 'gojs';
 
 @Component({
@@ -6,13 +6,10 @@ import * as go from 'gojs';
   templateUrl: './gojs.component.html',
   styleUrls: ['./gojs.component.css']
 })
-export class GojsComponent implements OnInit {
+export class GojsComponent{
   title = 'GoJS in Angular';
 
-  constructor() { }
 
-  ngOnInit() {
-  }
   ngAfterViewInit() {
     // function init() {
       var $ = go.GraphObject.make;  // for conciseness in defining templates
