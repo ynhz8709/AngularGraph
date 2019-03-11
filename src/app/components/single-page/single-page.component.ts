@@ -10,6 +10,11 @@ export class SinglePageComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
+   background(){
+     const image= { "background-image":  "url(../../../assets/home-background.jpg)"};
+     return image;
+   }
 
 }

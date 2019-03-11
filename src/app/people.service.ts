@@ -39,6 +39,7 @@ export class PeopleService {
       const pepleedit = new People;
       pepleedit.name=`${people.name}-${people.id}`;
       pepleedit.lastname=`${people.lastname}-${people.id}`;
+      
         return this.http.put<People>(`${this.peopleUrl}/people/edit/${people.id}`, JSON.stringify(pepleedit))
         .pipe(
           map((res)=>res),
