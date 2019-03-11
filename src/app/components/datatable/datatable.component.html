@@ -1,53 +1,84 @@
-<div class="col-12" style="min-height:890px;background-color: #fff;">  
 <div class="col-12 pull-right mt-3 mb-3">
         <button (click)="goBack()" class="btn btn-primary btn-sm pull-right">go back</button>
 </div>
+<div class="card" style="padding:15px;margin:15px">
+        <div class="card-body">
+        <form (submit)='addPeople($event)'>
+            <div class="input-group">
+                <input type="text" [(ngModel)]="name" required  name="name" class="input-control col-3" placeholder="Name">
+                <input type="text" [(ngModel)]="lastname" required name="lastname" class="input-control col-3" placeholder="LastName">
+                <input type="text" [(ngModel)]="age" required name="age" class="input-control col-3" placeholder="AGE">
+                <div class="col-1">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sex" 
+                            id="Female" value="Female" [checked]="true"(click)="updatesex('Female')" >
+                            <label class="form-check-label" for="Female">Female</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sex" 
+                            id="Male" value="Male" (click)="updatesex('Male')">
+                            <label class="form-check-label" for="Male">Male</label>
+                        </div>
+                </div>
+                
+                <!-- <input type="text" [(ngModel)]="sex" required name="sex" class="input-control col-2" placeholder="SEX"> -->
+                <span class="input-group-addon col-2">
+                    <button type="submit" class="btn btn-primary ">Add People</button>
+                </span>
+            </div>
+        </form>
+        </div>
+    </div>
 
+<div class="col-12" style="min-height:890px;background-color: #fff;">  
 
-<table class="table table-hover table-condensed" [mfData]="data" #mf="mfDataTable"
-[mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
-<thead>
-<tr  [ngStyle]="{backgroundColor:'lightgrey' }">
-    <th style="width: 20%">
-        <mfDefaultSorter by="name">Seen</mfDefaultSorter>
-    </th>
-    <th style="width: 20%">
-        <mfDefaultSorter by="name">URL</mfDefaultSorter>
-    </th>
-    <th style="width: 20%">
-        <mfDefaultSorter by="type">Type</mfDefaultSorter>
-    </th>
-    <th style="width: 20%">
-        <mfDefaultSorter by="name">SubType</mfDefaultSorter>
-    </th>
-    <th style="width: 20%">
-        <mfDefaultSorter by="name">Status</mfDefaultSorter>
-    </th>
-    <th style="width: 50%">
-        <mfDefaultSorter by="email">TM Seen</mfDefaultSorter>
-    </th>
-    <th style="width: 10%">
-        <mfDefaultSorter by="age">TM Satus</mfDefaultSorter>
-    </th>
-</tr>
-</thead>
-<tbody>
-<tr *ngFor="let item of mf.data">
-    <td>{{item.attributes.first_seen}}</td>
-    <td>{{item.attributes.crime_server_url}}</td>
-    <td>{{item.type}}</td>
-    <td>{{item.attributes.subtype_name}}</td>
-    <td>{{item.attributes.status}}</td>
-    <td>{{item.attributes.last_seen}}</td>
-    <td>{{item.attributes.is_false_positive}}</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
- <td colspan="7">
-     <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
- </td>
-</tr>
-</tfoot>
-</table>
+    <table class="table table-hover table-condensed" [mfData]="data" #mf="mfDataTable"
+        [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+        <thead>
+                <tr  [ngStyle]="{backgroundColor:'#f0f0f3' }">
+                    <th style="width: 5%">
+                        <mfDefaultSorter by="name">ID</mfDefaultSorter>
+                    </th>
+                    <th style="width: 30%">
+                        <mfDefaultSorter by="name">NAME</mfDefaultSorter>
+                    </th>
+                    <th style="width: 25%">
+                        <mfDefaultSorter by="name">LASTNAME</mfDefaultSorter>
+                    </th>
+                    <th style="width: 15%">
+                        <mfDefaultSorter by="type">AGE</mfDefaultSorter>
+                    </th>
+                    <th style="width: 15%">
+                        <mfDefaultSorter by="name">SEX</mfDefaultSorter>
+                    </th>
+                    <th style="width: 10%">
+                            <mfDefaultSorter by="name">ACTIONS</mfDefaultSorter>
+                    </th>
+                </tr>
+        </thead>
+        <tbody>
+                <tr *ngFor="let item of mf.data">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.lastname}}</td>
+                    <td>{{item.age}}</td>
+                    <td>{{item.sex}}</td>
+                    <td>
+                        <button title="Edit" (click)="editPeople(item)" class="btn btn-warning btn-sm" style="margin-right:15px">
+                                <i class=" fa fa-pencil" ></i>
+                        </button>
+                        <button title="Delete" (click)="deletePeople(item.id)" class="btn btn-danger btn-sm">
+                                <i class=" fa fa-trash" ></i>
+                        </button>
+                    </td>
+                </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+        <td colspan="6">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+        </td>
+        </tr>
+        </tfoot>
+    </table>
 </div>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
+import { PeopleService }  from '../../people.service';
+import { People } from 'src/app/people';
+
+
 
 @Component({
   selector: 'app-datatable',
@@ -9,41 +11,92 @@ import { Location } from '@angular/common';
   styleUrls: ['./datatable.component.css']
 })
 export class DatatableComponent implements OnInit { 
-   data: any[];
+  data: People[] = [];
+  //  data: any[];
    filterQuery = "";
    rowsOnPage = 5;
    sortBy = "type";
    sortOrder = "asc";
-constructor(private http: HttpClient,private location: Location) { }
+   peoples: People[] = [];
 
-  ngOnInit() {    
-    // this.http.get("../assets/data.json")
-    //         .subscribe((data)=> {
-    //             setTimeout(()=> {
-    //               console.log(data);
-    //                 this.data = data;
-    //             }, 2000);
-    //         });
-    this.getJSON().subscribe(data => {
-      this.data=data['data'];
-    });
-  
-  }
-  getJSON(): Observable<any> {
-      return this.http.get("../assets/crimeserver_list/crime_servers_list.json");     
+  //var people
+  name:string;
+  lastname:string;
+  age:string;
+  sex:string;
+
+
+constructor(private peopleService: PeopleService,private location: Location) { 
+  this.sex='Female';
+}
+
+  ngOnInit(): void {    
+     this.getPeoples();    
   }
 
-  goBack(): void {
-    this.location.back();
+  getPeoples(): void {
+    this.peopleService.getPeople()
+    .subscribe((people)=>{
+      this.data=people
+    });  
   }
 
-  public toInt(num: string) {
-    return +num;
- }
+  addPeople(event){
+    event.preventDefault();
+    const newpeople: People = {
+      name:this.name,
+      lastname:this.lastname,
+      age: this.age,
+      sex: this.sex,
+      id: 0,
+    }
+    this.peopleService.addPeople(newpeople).subscribe((people) =>{
+      const peoplenew: People = {
+        id: people[0].id,
+        name:people[0].name,
+        lastname:people[0].lastname,
+        age: people[0].age,
+        sex: people[0].sex       
+      }
 
-  public sortByWordLength = (a: any) => {
-      return a.city.length;
+      this.data.push(peoplenew);
+    })
+    this.name='';
+    this.lastname='';
+    this.age='';
   }
+
+  deletePeople(id){
+      this.peopleService.deletePeople(id)
+      .subscribe((resp)=>{
+        if(resp){
+          const result = this.data.filter(c => c.id !== id);
+          this.data=result;
+        }
+    });  
+  }
+
+  editPeople(people:People){
+    this.peopleService.editPeople(people)
+    .subscribe((peop)=>{
+      this.data.map((obj,index)=>{
+        if(obj.id==people.id){
+          this.data[index]=peop[0];
+        }
+      })
+  });  
+}
+
+  updatesex(data){
+    this.sex=data;
+  }
+
+  goBack(): void {this.location.back()}
+
+  //todo methods for datatable
+  public toInt(num: string) {return +num;}
+
+  public sortByWordLength =  (a: any) => {return a.city.length;}
 
   public remove(item) {
       let index = this.data.indexOf(item);
@@ -51,4 +104,7 @@ constructor(private http: HttpClient,private location: Location) { }
           this.data.splice(index, 1);
       }
   }
+
+  
 }
+
